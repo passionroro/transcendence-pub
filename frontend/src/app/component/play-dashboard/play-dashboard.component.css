@@ -1,0 +1,132 @@
+.container {
+  color: aliceblue;
+  background-color: rgba(177, 255, 214, 0.293);
+  padding: 50px;
+  margin: 50px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.stat-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.stat {
+  margin-bottom: 15px;
+}
+
+.grid {
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.value {
+  font-weight: bold;
+}
+
+.button {
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: rgba(0, 0, 255, 0.562);
+  color: aliceblue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #1f25a2;
+}
+
+/* ACHIVEMENTS */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: slateblue;
+  background-color: aliceblue;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: visible;
+  justify-content: space-between;
+}
+
+.achievements-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 10px;
+}
+
+.achievement {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.achievement:hover {
+  transform: scale(1.05);
+}
+
+.achievement-content {
+  text-align: center;
+}
+
+.achievement-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.achievement-title.locked-achievement {
+  color: grey;
+}
+
+.achievement-description {
+  color: #555;
+}
+
+/* LEVELS */
+.progress-bar {
+  fill: #3498db;
+}
+
+.progress-bar-fill {
+  fill: #2ecc71;
+}
+
+.progress-bar-text {
+  fill: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}

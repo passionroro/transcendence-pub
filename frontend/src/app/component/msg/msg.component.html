@@ -1,0 +1,10 @@
+<div class="container backdrop" *ngIf="msg !== undefined">
+  <div class="overlay"></div>
+  <div class="msg-box" role="alert">
+    <i class="fa-solid fa-circle-check"></i>
+    <br>
+    <h5>{{msg}}</h5>
+    <br>
+    <button type="button" class="btn close" aria-label="Close" (click)="closeAlert()">Close</button>
+  </div>
+</div>

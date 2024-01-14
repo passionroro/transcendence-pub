@@ -1,0 +1,122 @@
+.content {
+  margin-top: 20px;
+  display: flex;
+  align-items: stretch;
+  color: rgb(255, 255, 255);
+  align-items: center;
+  justify-content: center;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 50%;
+}
+
+.right-side {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.buttons {
+  margin-top: 30px;
+}
+
+.main-button {
+  min-width: 200px;
+  min-height: 35px;
+  margin: 25px;
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+}
+
+.cancel-button {
+  background-color: rgba(177, 177, 177, 0.714);
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+}
+
+button { 
+  margin:15px;
+  margin-bottom: 0px;
+  min-width:180px;
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.qrImage {
+  width: 220px;
+  height: 220px;
+  margin: 10px;
+}
+
+.avatar {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+}
+
+.title h1,
+.title img.avatar {
+  flex-direction: row;
+  display: inline;
+  vertical-align: middle;
+  font: italic 50px Georgia;
+}
+
+.dialog {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: slateblue;
+  background-color: aliceblue;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog > div {
+  display: flex;
+  flex-direction: row;
+}
+
+input {
+  color: slateblue !important;
+  text-align: center;
+  margin: -20px;
+  padding: 20px;
+  background-color: rgb(226, 222, 252) !important;
+}
+
+@Media (max-width: 900px) {
+  .title h1,
+  .title img.avatar {
+    flex-direction: column !important;
+    display: flex !important;
+    justify-self: center !important;
+    align-self: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  img.avatar {
+    margin: auto !important;
+    margin-bottom: 10px !important;
+  }
+}
+
+@Media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .title {
+    padding-top: 50px !important;
+  }
+}

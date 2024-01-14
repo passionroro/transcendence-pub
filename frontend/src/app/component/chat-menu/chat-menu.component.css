@@ -1,0 +1,130 @@
+.menu {
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  z-index: 100;
+  border-radius: 5px;
+  display: block;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  max-height: 480px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  background-color: transparent;
+  height: 70px;
+  border-bottom: 1px solid #e1e1e1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.profile {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.profile .profile-pic {
+  margin-right: 20px;
+  margin-left: 55px;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.menu-item:hover {
+  background-color: #e1e1e1;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#back {
+  border-top: 1px solid #e1e1e1;
+  color: crimson;
+  cursor: pointer;
+  min-height: 50px;
+}
+
+#empty {
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-pic {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  margin-right: 12px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.dialog {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: slateblue;
+  background-color: aliceblue;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  min-width: 400px;
+  min-height: 580px;
+  justify-content: space-between;
+}
+
+.btn {
+  min-width: 120px;
+  min-height: 35px;
+  margin: 25px;
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+  background-color: blueviolet;
+  color: white;
+  border-radius: 5%;
+}
+
+.cancel-button {
+  color: #333;
+  background-color: rgba(177, 177, 177, 0.714);
+}
+
+.select-text {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: slateblue;
+}

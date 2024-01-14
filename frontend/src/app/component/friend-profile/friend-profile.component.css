@@ -1,0 +1,68 @@
+.content {
+  color: #fff;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  text-align: center;
+}
+
+p {
+  margin-top: 35px;
+  font-size:medium
+}
+
+.avatar {
+  width: 180px;
+  height: 180px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.friend-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.btn {
+  margin: 25px;
+  color:rgb(255, 255, 255);
+  background-color: #7b1fa2;
+  min-width: 200px;
+  min-height: 35px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap; /* Prevent button content from wrapping */
+  overflow: hidden; /* Hide content that doesn't fit */
+  text-overflow: ellipsis; 
+  box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.081);
+}
+
+.block {
+  background-color: darkred;
+}
+
+.unblock {
+  color: #7b1fa2;
+  background-color: #ffffff;
+}
+
+.online {
+  color: #00ff00;
+}
+
+.offline {
+  color: #ff0000;
+}
+
+.in {
+  color: #f4ff55;
+}

@@ -1,0 +1,221 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+<app-msg #messagePopup [msg]="msg" *ngIf="msg" (close)="msg = undefined;"></app-msg>
+<app-alert [error]="err" *ngIf="err" (close)="err = undefined;"> </app-alert>
+<div class="container chat-info">
+  <div class="title">
+    <img class="avatar" src="{{this.chatData.avatarUrl}}" alt="Avatar">
+    <div class="chat-info"  style="text-align: left;">
+      <h1 style="color: aquamarine;">{{ chatData.name }}</h1>
+      <p style="margin-top: 30px !important;">{{ chatData.type }}</p>
+      <p style="margin-top: 15px !important;">Created at {{ chatData.createdAt | date: 'dd/MM/yyyy' }} By {{ creator }}</p>
+    </div>
+  </div>
+  <div class="content">
+    <div class="left-side">
+      <h4 *ngIf="isRoot">Chat Settings:</h4>
+      <br>
+      <button *ngIf="isRoot" class="btn-primary" (click)="dialog.open(changeChannelNameDialog);">Change channel name</button>
+      <button *ngIf="isRoot && (chatData.type === 'PUBLIC' || chatData.type === 'PRIVATE')" class="btn-primary" (click)="dialog.open(changePasswordDialog);">Set channel password</button>
+      <button *ngIf="isRoot && chatData.type === 'PROTECTED'" class="btn-primary" (click)="dialog.open(changePasswordDialog);">Change channel password</button>
+      <button *ngIf="isAdmin && chatData.type === 'PRIVATE'" class="btn-primary" (click)="dialog.open(this.inviteFriendsDialog);">Invite friends</button>
+      <button *ngIf="isAdmin && chatData.type === 'PRIVATE'" class="btn-primary" (click)="dialog.open(this.uninviteFriendsDialog);">Uninvite friends</button>
+      <button *ngIf="isRoot && (chatData.type === 'PROTECTED' || chatData.type === 'PRIVATE')" class="btn-primary" (click)="dialog.open(this.makeChannelPublicDialog);">Make channel public</button>
+      <button *ngIf="isRoot && (chatData.type === 'PUBLIC' || chatData.type === 'PROTECTED')" class="btn-primary" (click)="dialog.open(this.makeChannelPrivateDialog);">Make channel private</button>
+      <button *ngIf="isAdmin" class="btn-primary" (click)="dialog.open(this.unbanDialog);">Unban</button>
+      <button class="btn-primary leave-chat-btn" (click)="dialog.open(this.leaveChannelDialog);">Leave chat</button>
+      <button *ngIf="isRoot" class="btn-primary delete-chat-btn" (click)="dialog.open(this.deleteChannelDialog);">Delete chat</button>
+    </div>
+    <div class="right-side">
+      <button class="button-to-chat" [routerLink]="['/chat/' + chatData.id]">Go to chat</button>
+      <div class="chat-members">
+        <h4>Chat Members:</h4>
+        <br>
+        <ol class="no-bullets">
+          <li class="member" *ngFor="let user of chatData.users">
+            <div class="member-container">
+              <img class="profile-pic" [src]="user.avatarUrl" decoding="async">
+              <a *ngIf="user.id !== userId && (!isAdmin || user.chatRank === 'OWN')" [routerLink]="['/profile', user.id]">
+                <button class="button-friend" style="width: 200px; margin-right: 5px;">{{ user.login }}</button>
+              </a>
+              <a *ngIf="user.id !== userId && isAdmin && user.chatRank !== 'OWN'" [routerLink]="['/profile', user.id]">
+                <button class="button-friend">{{ user.login }}</button>
+              </a>
+              <a *ngIf="user.id === userId" [routerLink]="['/profile']">
+                <button class="button-friend" style="width: 200px; margin-right: 5px;">{{ user.login }}</button>
+              </a>
+              <button *ngIf="user.id !== userId && isAdmin && user.chatRank !== 'OWN'"
+              class="button-friend-settings" (click)="memberSettings = user; dialog.open(this.memberSettingsDialog);">
+                <i class="fa-solid fa-gear"></i>
+              </button>
+              <h5 class="userChatRank">{{ user.chatRank }}</h5>
+            </div>
+          </li>
+        </ol>
+        <p *ngIf="chatData.users === undefined || chatData.users && chatData.users.length === 0">No members to show</p>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #changeChannelNameDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Enter a new name:</h4>
+    <br>
+    <br>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="newChatName" placeholder="new name">
+    </mat-form-field>
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" (click)="onSaveNameClick()">Save</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #changePasswordDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Enter a new password:</h4>
+    <br>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="newChatPassword" placeholder="****">
+    </mat-form-field>
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" (click)="onSavePasswordClick()">Save</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #leaveChannelDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Are you sure you want to leave this chat?</h4>
+    <br>
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" style="color: red;background-color: aliceblue;" (click)="onLeaveChannelClick()">Leave</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #deleteChannelDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Are you sure you want to delete this chat?</h4>
+    <br>
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" style="background-color: red;" (click)="onDeleteChannelClick()">Delete</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #makeChannelPublicDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Are you sure you want to make this channel public?</h4>
+    <br>
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" (click)="onMakeChatPublicClick()">Public it!</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #makeChannelPrivateDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Are you sure you want to make this channel private?</h4>
+    <br>
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" (click)="onMakeChatPrivateClick()">Hmm yes!</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #inviteFriendsDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Invite friends:</h4>
+    <br>
+    <br>
+    <ul class="user-list">
+      <li class="list-row" *ngFor="let user of friendsToInvite">
+        <button class="list-item" (click)="onInviteFriendClick(user.id)">
+          <img class="profile-pic" [src]="user.avatarUrl" decoding="async">
+          <p>{{ user.login }}</p>
+        </button>
+      </li>
+    </ul>
+    <h5 style="color: red;" *ngIf="friendsToInvite.length === 0">No friends to invite</h5>
+  </div>
+</ng-template>
+<ng-template #uninviteFriendsDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Uninvite users:</h4>
+    <br>
+    <br>
+    <ul class="user-list">
+      <li class="list-row" *ngFor="let user of chatData.invited">
+        <button class="list-item" (click)="onUninviteFriendClick(user.id)">
+          <img class="profile-pic" [src]="user.avatarUrl" decoding="async">
+          <p>{{ user.login }}</p>
+        </button>
+      </li>
+    </ul>
+    <h5 style="color: red;" *ngIf="chatData.invited !== undefined && chatData.invited.length === 0">No users to uninvite</h5>
+  </div>
+</ng-template>
+<ng-template #memberSettingsDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="menu-adm">
+    <button class="menu-adm-btn" *ngIf="isAdmin && memberSettings && memberSettings.chatRank !== 'ADM'" (click)="addAdmin(memberSettings)"
+    >Add admin</button>
+    <button class="menu-adm-btn" *ngIf="isAdmin && memberSettings && memberSettings.chatRank === 'ADM'" (click)="removeAdmin(memberSettings)"
+    >Remove admin</button>
+    <button class="menu-adm-btn" *ngIf="isAdmin && memberSettings && memberSettings.chatRank !== 'OWN'" (click)="kickUser(memberSettings)"
+    >Kick</button>
+    <button class="menu-adm-btn" *ngIf="isAdmin && memberSettings && memberSettings.chatRank !== 'OWN'" (click)="banUser(memberSettings)"
+    >Ban</button>
+    <button class="menu-adm-btn" *ngIf="showMuteButton(memberSettings)" (click)="dialog.open(this.muteUserDialog)"
+    >Mute</button>
+    <button class="menu-adm-btn" *ngIf="showUnmuteButton(memberSettings)" (click)="unmuteUser(memberSettings)"
+    >Unmute</button>
+  </div>
+</ng-template>
+<ng-template #muteUserDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Mute user:</h4>
+    <br>
+    <br>
+    <input type="time" [(ngModel)]="selectedTime">
+    <br>
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">Cancel</button>
+      <button class="btn" (click)="muteUser()">Mute</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #unbanDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Unban user:</h4>
+    <br>
+    <br>
+    <ul class="user-list">
+      <li class="list-row" *ngFor="let user of chatData.banned">
+        <button class="list-item" (click)="onUnbanUserClick(user.id)">
+          <img class="profile-pic" [src]="user.avatarUrl" decoding="async">
+          <p>{{ user.login }}</p>
+        </button>
+      </li>
+    </ul>
+    <h5 style="color: red;" *ngIf="chatData.banned !== undefined && chatData.banned.length === 0">No users to unban</h5>
+  </div>
+</ng-template>

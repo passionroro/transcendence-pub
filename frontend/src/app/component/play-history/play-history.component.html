@@ -1,0 +1,22 @@
+<div class="content game-history">
+  <h2>Game History</h2>
+  <br>
+  <table>
+    <thead>
+      <tr>
+        <th>Winner</th>
+        <th>Score</th>
+        <th>Opponent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of games">
+        <td>{{ game.winner }}</td>
+        <td>{{ game.score }}</td>
+        <td>
+          <a [routerLink]="['/profile', getOpponent(game).id]">{{ getOpponent(game).login }}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

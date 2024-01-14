@@ -1,0 +1,77 @@
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.friends-list {
+  color: aliceblue;
+  background-color: rgba(177, 255, 214, 0.293);
+  padding: 50px;
+  border-radius: 10px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-height: calc(100vh - 300px);
+  justify-content: flex-end;
+  margin: 50px;
+  min-width: 320px;
+}
+
+.friends-list::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.no-bullets {
+  list-style: none;
+  border: 0px;
+}
+
+.friends {
+  margin: 20px;
+}
+
+.friend-container {
+  display: flex;
+  align-items: center;
+}
+
+.button-friend {
+  color:seagreen;
+  background-color: rgba(255, 241, 241, 0.898) !important;
+  min-width: 200px;
+  min-height: 35px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.profile-pic {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  justify-content: flex-end;
+  margin-right: 12px;
+}
+
+@Media (max-width: 1150px) {
+  .friends-list {
+    padding: 35px !important;
+    margin: 20px !important;
+    margin-left: 0 !important;
+  }
+}
+
+@Media (max-width: 768px) {
+  .friends-list {
+    padding: 25px !important;
+  }
+}

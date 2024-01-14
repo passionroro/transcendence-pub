@@ -1,0 +1,10 @@
+<div class="container backdrop"  *ngIf="error !== undefined">
+  <div class="overlay"></div>
+  <div class="alert-box" role="alert">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <br>
+    <h5>{{error}}</h5>
+    <br>
+    <button type="button" class="btn close" aria-label="Close" (click)="closeAlert()">Close</button>
+  </div>
+</div>

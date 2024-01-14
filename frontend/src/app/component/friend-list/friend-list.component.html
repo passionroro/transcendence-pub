@@ -1,0 +1,17 @@
+<div class="content">
+  <div class="friends-list">
+    <h4>My friends:</h4>
+    <br>
+    <ol class="no-bullets">
+      <li class="friends" *ngFor="let friend of friends">
+        <div class="friend-container">
+          <img class="profile-pic" [src]="friend.avatarUrl || '../../../assets/default.jpg'" decoding="async">
+          <a [routerLink]="['/profile', friend.id]">
+            <button class="button-friend">{{ friend.login }}</button>
+          </a>
+        </div>
+      </li>
+    </ol>
+    <h5 *ngIf="friends.length === 0" style="text-align:center;">You don't have any friends yet 🫂</h5>
+  </div>
+</div>

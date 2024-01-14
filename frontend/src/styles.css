@@ -1,0 +1,83 @@
+.container {
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  font-weight: 350 !important;
+}
+
+h1 {
+  font-size: 3.5rem !important;
+  font-weight: 350 !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  margin: 0px !important;
+}
+
+h2 {
+  font-size: 2.5rem !important;
+  font-weight: 350 !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  margin: 0px !important;
+}
+
+h3 {
+  font-size: 2rem !important;
+  font-weight: 350 !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  margin: 0px !important;
+}
+
+h4 {
+  font-size: 1.5rem !important;
+  font-weight: 350 !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  margin: 0px !important;
+}
+
+h5 {
+  font-size: 1.25rem !important;
+  font-weight: 350 !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  margin: 0px !important;
+}
+
+h6 {
+  font-size: 1rem !important;
+  font-weight: 350 !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+  margin: 0px !important;
+}
+
+/* Set the background image for the entire site */
+body {
+  color: #f0f0f0 !important;
+  background-image: url('./assets/aurora.jpeg') !important;
+  background-size: contain !important;
+  background-attachment: fixed !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Reset default margin and padding */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-y: auto !important;
+  font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+}
+
+.centered-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important; /* Set to 100% of the viewport height */
+  background-color: #f0f0f0 !important; /* Optional background color for illustration */
+}
+
+.row {
+    padding: 0 !important;
+}
+
+button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+}

@@ -1,0 +1,74 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+
+<app-msg
+  #messagePopup
+  [msg]="msg"
+  *ngIf="msg"
+  (close)="msg = undefined"
+></app-msg>
+<app-alert [error]="err" *ngIf="err" (close)="err = undefined"> </app-alert>
+
+<div class="container play" *ngIf="!gameStarted">
+  <h5>Choose your game mode :</h5>
+  <div class="row-buttons">
+    <button class="btn-primary classic" (click)="openUserInQueueDialog('classic')">Classic</button>
+    <button class="btn-primary extra" (click)="openUserInQueueDialog('xtra')">xtra</button>
+  </div>
+</div>
+
+<div class="canvas-container" [ngClass]="{ 'show-canvas': gameStarted }">
+    <div class="score-container">
+      <div class="score-grid">
+        <div class="player-login">{{ playerLogin }}</div>
+        <div class="player-score">{{ playerScore }}</div>
+        <div class="score-separator">-</div>
+        <div class="opponent-score">{{ opponentScore }}</div>
+        <div class="opponent-login">{{ opponentLogin }}</div>
+      </div>
+    </div>
+  <canvas id="canvas" [style.background]="getBackground()">Canvas failed loading</canvas>
+  <button class="btn-primary" (click)="openLeaveGameDialog()">
+    Leave
+  </button>
+</div>
+
+<ng-template #leaveGameDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Leaving the game will result in a forfait</h4>
+    <h4>Are you sure you want to leave this game ?</h4>
+    <br />
+    <div class="row-buttons">
+      <button class="btn cancel-button" (click)="onCancelClick()">
+        Cancel
+      </button>
+      <button
+        class="btn"
+        style="color: red; background-color: aliceblue"
+        (click)="onLeaveGameClick()"
+      >
+        Leave
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #userInQueueDialog>
+  <div class="overlay"></div>
+  <div class="dialog" style="color: dimgray;">
+    <h4 style="color: black;">Looking for opponent</h4>
+    <br>
+    <h5>Waiting...</h5>
+    <br>
+    <h5>Users in queue : {{ usersInQueue }}</h5>
+    <br />
+    <div class="row-buttons">
+      <button class="btn" (click)="onLeaveQueueClick()">Leave queue</button>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="!gameStarted">
+  <app-play-history [dashboardId]="userId"></app-play-history>
+</div>

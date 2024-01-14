@@ -1,0 +1,53 @@
+<div class="container">
+  <h4 class="title">Dashboard</h4>
+  <br>
+  <div class="stat">
+    <h5 class="subtitle">Win rate</h5>
+    <br>
+    <svg class="progress-bar" width="100%" height="20">
+      <rect class="progress-bar-fill" [attr.width]="winRate + '%'" height="100%" rx="10" ry="10"/>
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="progress-bar-text">
+        Level {{ winRate }}%
+      </text>
+    </svg>
+  </div>
+  <div class="stat-grid">
+    <div class="grid">
+      <p class="label">Games</p>
+      <p class="value">{{ dashboard?.totalGames }}</p>
+    </div>
+    <div class="grid">
+      <p class="label-inline">Wins</p>
+      <p class="value">{{ dashboard?.totalWins }}</p>
+    </div>
+  </div>
+  <svg class="progress-bar" width="100%" height="20">
+    <rect class="progress-bar-fill" [attr.width]="(dashboard?.level ?? 0) * 100 % 100 + '%'" height="100%" rx="10" ry="10"/>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="progress-bar-text">
+      Level {{ dashboard?.level }}
+    </text>
+  </svg>
+  <div class="button">
+    <button class="btn" (click)="openAchievementsDialog()">See Achievements</button>
+  </div>
+</div>
+
+<ng-template #achievementsDialog>
+  <div class="overlay" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Achievements</h4>
+    <br>
+    <div class="achievements-container">
+      <div class="achievement" *ngFor="let achievement of allAchievements">
+        <div class="achievement-content">
+          <p class="achievement-title" [ngClass]="{'locked-achievement': !isAchievementUnlocked(achievement.name)}">
+            {{ achievement.name }}
+          </p>
+          <p class="achievement-description" *ngIf="isAchievementUnlocked(achievement.name)">
+            {{ achievement.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

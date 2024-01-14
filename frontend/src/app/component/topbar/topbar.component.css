@@ -1,0 +1,109 @@
+.topbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: none !important;
+  position: relative;
+}
+
+.menu-icon {
+  font-size: 24px;
+  margin: 15px;
+  cursor: pointer;
+  color: #fff;
+  display: none;
+}
+
+.logo {
+  margin-left: auto;
+}
+
+#topbar-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-right: 8vw;
+  padding: 0;
+}
+
+#topbar-menu li {
+  margin-right: 4vw;
+  margin-left: 4vw;
+  flex: 0 0 auto;
+}
+
+#topbar-menu li:last-child {
+  margin-right: 0;
+}
+
+#topbar-logo {
+  margin: 20px;
+  width: 20vw;
+  min-width: 200px;
+  height: auto;
+  margin-left: auto;
+}
+
+#topbar-menu a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+#topbar-menu a:hover {
+  color: springgreen;
+  text-shadow: #fff 0 0 20px;
+}
+
+#topbar-menu a.active-link {
+  color: springgreen;
+}
+
+p {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+    position: absolute; /* Position the icon absolutely within the topbar */
+    top: 0; /* Align the icon to the top of the topbar */
+    left: 0;
+  }
+
+  .logo {
+    position: absolute; /* Position the icon absolutely within the topbar */
+    top: 0; /* Align the icon to the top of the topbar */
+    right: 0; 
+  }
+
+  #topbar-menu {
+    display: none; /* Hide the menu by default on smaller screens */
+    flex-direction: column;
+    align-items: center;
+    margin-left: 45px;
+    margin-top: 25px;
+    align-items: flex-start;
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+
+  #topbar-menu.open {
+    display: flex; /* Show the menu when the "open" class is present */
+  }
+}

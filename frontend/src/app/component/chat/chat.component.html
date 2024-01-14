@@ -1,0 +1,126 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+<div class="content chat">
+  <div class="select-chat">
+    <div class="top-panel">
+      <h5>Messaging</h5>
+      <button #menuButton shape="round" style="cursor: pointer;" (click)="isMenuOpen = true">
+        <i class="fa-solid fa-plus fa-lg"></i>
+      </button>
+      <div *ngIf="isMenuOpen" class="overlay" (click)="isMenuOpen = false;" (close)="isMenuOpen = false;"></div>
+      <div #menuContainer class="menu-container" *ngIf="isMenuOpen">
+        <app-chat-menu (close)="isMenuOpen = false;"></app-chat-menu>
+      </div>
+    </div>
+    <div *ngIf="!chats.length" class="no-conversation-text">
+      <h5>Chats will be shown here</h5>
+    </div>
+    <div *ngFor="let chat of chats; let i = index"
+    (click)="openConversation(chat, i)"
+    class="chat"
+    [ngClass]="{ 'selected-conversation': selectedConvIndex === i }"
+    >
+      <div class="chat-container">
+        <div class="chat-row">
+          <div class="chat-avatar">
+            <img src="{{ chat.avatarUrl }}" alt="Chat Avatar" decoding="async">
+          </div>
+          <div class="chat-info">
+            <h6 class="select-chat-name">{{ chat?.name || "Loading..." }}</h6>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </div>
+  <div class="conversation">
+    <div class="top-panel">
+      <div class="top-panel-chat">
+        <button *ngIf="chat?.avatarUrl" class="chat-header-img" (click)="openChatInfo()">
+          <img class="chat-header-avatar" [src]="chat?.avatarUrl" decoding="async">
+        </button>
+        <button class="chat-header-text" (click)="openChatInfo()">
+          <h5>{{ chat?.name }}</h5>
+        </button>
+      </div>
+      <h5 *ngIf="!chats.length" class="no-conversation-text">No chat was chosen</h5>    
+    </div>
+    <div class="chat-grid">
+      <div class="chat-grid-row" *ngFor="let message of messages">
+        <button *ngIf="shouldShowProfilePicture(message)" class="profile-pic-button" (click)="openProfile(message)">
+          <img class="message-avatar" [src]="message.avatarUrl" decoding="async">
+        </button>
+        <div class="chat-grid-col">
+          <div class="all-messages" [class.user-message]="isMessageMine(message)">
+            <p *ngIf="shouldHaveUsername(message);" style="font-size: x-small;">{{ message.user?.login }}<br></p>
+            <p class="message-content">{{ message.content }}</p>
+            <p style="font-size: xx-small; text-align: right;">
+              <span *ngIf="message.createdAt && isNotToday(message.createdAt)">{{ message.createdAt | date: 'dd/MM/yyyy' }}</span>
+              {{ message.createdAt | date: 'HH:mm' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form #form="ngForm" class="text-input" (ngSubmit)="onSubmit()" *ngIf="!this.isBlocked && !this.isBlocking">
+      <textarea matInput
+        class="message-input"
+        [(ngModel)]="message"
+        type="text"
+        name="message"
+        placeholder="Type a message..."
+        require
+        (keydown)="onKeyDown($event)"
+        autofocus
+      >
+      </textarea>
+      <div style="display: flex; justify-content: space-between">
+      <button
+        class="send-button"
+        [disabled]="!form.valid"
+        type="submit"
+        shape="round"
+      >
+      <p class="send-button-text">Send</p>
+      </button>
+      <button
+        class="send-button"
+        [ngClass]="{ 'join-state': invite === 'Join', 'cancel-state': invite === 'Cancel' }"
+        *ngIf="this.chat?.type === 'DIRECT'"
+        type="button"
+        shape="round"
+        (click)="openInviteDialog()"
+      >
+      <p class="send-button-text">{{ invite }}</p>
+      </button>
+      </div>
+    </form>
+    <div class="blocked-message-block">
+      <p class="blocked-message" *ngIf="this.isBlocked">You have been blocked by this user</p>
+      <p class="blocked-message" *ngIf="this.isBlocking">You have blocked this user</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #inviteDialog>
+  <div class="overlay-invite" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Invite "{{ chat?.name }}" to play</h4>
+    <br />
+    <h5>Choose a game mode</h5>
+    <br />
+    <div class="row-buttons">
+      <button class="btn-primary classic" (click)="onInviteClick('classic')">Classic</button>
+      <button class="btn-primary extra" (click)="onInviteClick('xtra')">xtra</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #joinDialog>
+  <div class="overlay-invite" (click)="onCancelClick()"></div>
+  <div class="dialog">
+    <h4>Join "{{ chat?.name }}" to play ?</h4>
+    <div class="row-buttons">
+      <button class="btn-primary classic" (click)="onInviteClick()">Join</button>
+    </div>
+  </div>
+</ng-template>

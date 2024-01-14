@@ -1,0 +1,346 @@
+.container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 70px;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .right-side,
+  .left-side {
+    flex: none;
+    width: 100%;
+  }
+
+  .right-side {
+    order: -1;
+  }
+
+  .left-side {
+    margin-top: 20px;
+    max-height: none;
+    overflow-y: hidden;
+  }
+
+  .chat-members {
+    max-height: none;
+    margin: 20px;
+  }
+}
+
+
+.avatar {
+  background: transparent;
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.title {
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  font-weight: 350;
+  color: antiquewhite;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.chat-info {
+  text-align: left;
+}
+
+.btn-primary {
+  margin: 25px;
+  color:rgb(255, 255, 255);
+  background-color: #7b1fa2;
+  min-width: 200px;
+  min-height: 35px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap; /* Prevent button content from wrapping */
+  overflow: hidden; /* Hide content that doesn't fit */
+  text-overflow: ellipsis; 
+  box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.081);
+}
+
+.leave-chat-btn {
+  color: darkred;
+  background-color: white;
+}
+
+.delete-chat-btn {
+  background-color: darkred;
+}
+
+.content {
+  margin-top: 20px;
+  display: flex;
+}
+
+.right-side,
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-side {
+  justify-content: flex-start;
+  overflow: hidden;
+  width: 100%;
+}
+
+.left-side {
+  justify-content: flex-start;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-height: calc(100vh - 410px);
+}
+
+.left-side::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.no-bullets {
+  list-style: none;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.button-friend {
+  color:seagreen;
+  background-color: rgba(255, 241, 241, 0.898) !important;
+  width: 160px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.button-friend-settings {
+  color:seagreen;
+  background-color: rgba(255, 241, 241, 0.898) !important;
+  width: 42px;
+  height: 35px;
+  border-radius: 5px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.chat-members {
+  color: aliceblue;
+  padding: 50px;
+  background-color: rgba(177, 255, 214, 0.293);
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-height: calc(100vh - 430px);
+  border-radius: 10px;
+  width: calc(100% - 100px);
+  max-width: 350px;
+}
+
+.button-to-chat {
+  height: 35px;
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgba(255, 241, 241, 0.72);
+  color:violet;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.chat-members::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.member {
+  margin: 20px;
+}
+
+.member-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  justify-content: flex-end;
+  margin-right: 12px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: slateblue;
+  background-color: aliceblue;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  justify-content: space-between;
+}
+
+.row-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.btn {
+  cursor: pointer;
+  width: 120px;
+  height: 35px;
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+  background-color: blueviolet;
+  color: white;
+  margin: 0px 20px;
+  border-radius: 5px;
+}
+
+.cancel-button {
+  color: #333;
+  background-color: rgba(177, 177, 177, 0.714);
+}
+
+.user-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-height: 500px;
+  min-width: 300px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+}
+
+.user-list:empty {
+  border: none;
+}
+
+.list-row {
+  background-color: transparent;
+  height: 70px;
+  border-bottom: 1px solid #e1e1e1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.list-row:hover {
+  background-color: rgba(177, 177, 177, 0.164);
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.list-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+p {
+  margin: 0px;
+  padding-left: 15px;
+}
+
+.user-list::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.userChatRank {
+  color: #ffffff;
+  background-color: rgba(210, 210, 210, 0);
+  width: 70px;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-adm {
+  background-color:azure;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.menu-adm-btn {
+  cursor: pointer;
+  height: 70px;
+  width: 300px;
+  border-bottom: 1px solid #e1e1e1;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: medium;
+}
+
+.menu-adm-btn:hover {
+  background-color: rgba(177, 177, 177, 0.164);
+}
+
+.menu-adm-btn:last-child {
+  border-bottom: none;
+}

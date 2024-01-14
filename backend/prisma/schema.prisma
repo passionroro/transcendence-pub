@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  // User profile
+  login       String  @unique
+  email       String  @unique
+  status      String  @default("offline")
+  avatar      Boolean @default(false)
+  tfaEnabled  Boolean @default(false)
+  tfaVerified Boolean @default(false)
+  tfaSecret   String? @map("hidden_field")
+
+  // Friends
+  friends         User[] @relation("friends")
+  friendRequests  User[] @relation("requested")
+  blockedUsers    User[] @relation("blocked")
+
+  friendsRelation User[] @relation("friends") // used to store the relation (can be ignored)
+  requestRelation User[] @relation("requested") // used to store the relation (can be ignored)
+  blockedRelation User[] @relation("blocked") // used to store the relation (can be ignored)
+
+  // Game
+  gameDashboard Dashboard? // 1 user can have 1 dashboard
+  gameOpponents Game[]
+
+  // chats 
+  chats       Chat[]      @relation("UserChats")
+  adminChats  Chat[]      @relation("AdminChats")
+  rootChats   Chat[]      @relation("RootChats")
+  invitedChats Chat[]     @relation("InvitedChats")
+  bannedChats Chat[]      @relation("BannedChats")
+  mutedChats  MutedUser[]
+  messages    Message[]
+
+  socketId    String?
+
+  @@map("users")
+}
+
+model Chat {
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt @default(now())
+  creatorId       Int
+  name            String
+  type            String
+  password        String?   @map("hidden_field")
+  rootUser        User?     @relation("RootChats", fields: [rootUserId], references: [id])
+  rootUserId      Int?
+  admins          User[]    @relation("AdminChats")
+  users           User[]    @relation("UserChats")
+  invited         User[]    @relation("InvitedChats")
+  banned          User[]    @relation("BannedChats")
+  muted           MutedUser[]
+  messages        Message[]
+}
+
+model MutedUser {
+  id             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+  chat           Chat     @relation(fields: [chatId], references: [id])
+  chatId         Int
+  muteExpiration DateTime
+}
+
+model activeChat {
+  id       Int    @id @default(autoincrement())
+  socketId String
+  userId   Int
+  chatId   Int
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  content   String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  chatId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Dashboard {
+  id Int @id @default(autoincrement())
+
+  userProfile User @relation(fields: [userId], references: [id])
+  userId      Int  @unique // (relation to User)
+
+  totalGames   Int      @default(0)
+  totalWins    Int      @default(0)
+  totalLoses   Int      @default(0)
+  totalDraws   Int      @default(0)
+  level        Decimal  @default(0)
+  achievements String[] @default([])
+
+  matchHistory Game[] // 1 dashboard (= 1 user) can have many games
+
+  @@map("dashboard")
+}
+
+model Game {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  player1      Dashboard @relation(fields: [player1Id], references: [id])
+  player1Id    Int
+  player1Login String
+
+  player2      User   @relation(fields: [player2Id], references: [id])
+  player2Id    Int
+  player2Login String
+
+  winner    String?
+  score     String?
+  mode      String?
+}

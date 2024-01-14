@@ -1,0 +1,69 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+<app-alert [error]="err" *ngIf="err" (close)="err = undefined;"> </app-alert>
+<app-msg [msg]="msg" *ngIf="msg" (close)="msg = undefined;"></app-msg>
+<h3 class="title">Join a Channel</h3>
+<h5 class="description">You can join a channel by clicking on it. <br> Insert the password if it's a protected channel or accept the invitation if it's a private channel</h5>
+<div class="channels">
+  <div class="block">
+    <div class="block-title">
+      <h4>Public</h4>
+    </div>
+    <div class="channel-list">
+      <div class="channel" *ngFor="let channel of publicChannels" (click)="openJoinChannelDialog(channel)">
+        <div class="channel-content">
+          <img class="channel-img" src="{{channelImage}}">
+          <h5 class="channel-name">{{channel.name}}</h5>
+        </div>
+      </div>
+      <h5 *ngIf="publicChannels.length == 0" class="no-channels-text">No public channels</h5>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-title">
+      <h4>Protected</h4>
+    </div>
+    <div class="channel-list">
+      <div class="channel" *ngFor="let channel of protectedChannels" (click)="openJoinChannelDialog(channel)">
+        <div class="channel-content">
+          <img class="channel-img" src="{{channelImage}}">
+          <h5 class="channel-name">{{channel.name}}</h5>
+        </div>
+      </div>
+      <h5 *ngIf="protectedChannels.length == 0" class="no-channels-text">No protected channels</h5>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-title">
+      <h4>Invited</h4>
+    </div>
+    <div class="channel-list">
+      <div class="channel" *ngFor="let channel of invitedChannels" (click)="openJoinChannelDialog(channel)">
+        <div class="channel-content">
+          <img class="channel-img" src="{{channelImage}}">
+          <h5 class="channel-name">{{channel.name}}</h5>
+        </div>
+      </div>
+      <h5 *ngIf="invitedChannels.length == 0" class="no-channels-text">No channels I'm invited to</h5>
+    </div>
+  </div>
+</div>
+<ng-template #joinChannelDialog>
+  <div class="overlay" (click)="onCloseClick()"></div>
+  <div class="dialog">
+    <h4>{{ chosenChannel?.name }}</h4>
+    <br>
+    <br>
+    <h5 class="chatDescriptionDialog">Created by {{ chosenChannelCreator }} At {{ chosenChannel?.createdAt | date: 'dd/MM/yyyy' }}</h5>
+    <br>
+    <p class="select-text" *ngIf="chosenChannel && chosenChannel.type == 'PROTECTED'">Enter chat password:</p>
+    <mat-form-field *ngIf="chosenChannel && chosenChannel.type == 'PROTECTED'">
+      <input type="password" matInput [(ngModel)]="channelPassword" placeholder="*****">
+    </mat-form-field>
+    <br>
+    <div class="button-container">
+      <button class="cancel-button btn" (click)="onCloseClick()">Back</button>
+      <button class="btn" *ngIf="(chosenChannel && chosenChannel.type !== 'PROTECTED' || channelPassword !== '')" (click)="joinChannel()">Join</button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="topbar">
+  <button class="menu-icon" (click)="toggleMenu()">☰</button>
+
+  <ul id="topbar-menu" [class.open]="isMenuOpen">
+    <li *ngFor="let nav of menu">
+      <a routerLink="/{{nav | lowercase}}" routerLinkActive="active-link"><p>{{ nav }}</p></a>
+    </li>
+  </ul>
+
+  <a class="logo" routerLink="/">
+    <img id="topbar-logo" src="../../../assets/logo-white.png" alt="Logo">
+  </a>
+</div>

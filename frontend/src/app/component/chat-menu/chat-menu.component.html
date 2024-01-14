@@ -1,0 +1,63 @@
+<app-alert [error]="err" *ngIf="err" (close)="err = undefined; onCloseClick()"> </app-alert>
+<app-msg [msg]="msg" *ngIf="msg" (close)="msg = undefined; onCloseClick()"> </app-msg>
+<div class="menu" *ngIf="mainMenuOpen">
+  <button class="menu-item" (click)="chatFriendMenu()">
+    <p>Chat a friend</p>
+  </button>
+  <button class="menu-item" (click)="openCreateChannelDialog()"><p>
+    Create a channel</p>
+  </button>
+  <button class="menu-item" (click)="joinChannel()">
+    <p>Join a channel</p>
+  </button>
+</div>
+<div class="menu" *ngIf="friendMenuOpen">
+  <ul class="list">
+    <li class="menu-item profile" *ngFor="let friend of friendsWithoutChat">
+      <button class="menu-item" (click)="chatFriend(friend)">
+        <img class="profile-pic" [src]="friend.avatarUrl" decoding="async">
+        <p>{{friend.login}}</p>
+      </button>
+    </li>
+  </ul>
+  <div id="empty" *ngIf="friendsWithoutChat.length == 0">
+    <p style="font-weight: bold;">No friends available</p>
+  </div>
+  <div class="menu-item" id="back" (click)="onBackClick()">Back</div>
+</div>
+<ng-template #createChannelDialog>
+  <div class="overlay" (click)="onCloseClick()"></div>
+  <div class="dialog">
+    <h4>Create a new channel 🍦</h4>
+    <br>
+    <p class="select-text">Name it:</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="newChatName" placeholder="Channel name">
+    </mat-form-field>
+    <p class="select-text">Select Channel type:</p>
+    <mat-form-field>
+      <mat-select [(value)]="newChatType" placeholder="Select channel type">
+        <mat-option value="PUBLIC">Public</mat-option>
+        <mat-option value="PROTECTED">Password protected</mat-option>
+        <mat-option value="PRIVATE">Private</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p class="select-text" *ngIf="newChatType == 'PROTECTED'">Choose a password for your channel:</p>
+    <mat-form-field *ngIf="newChatType == 'PROTECTED'">
+      <input matInput [(ngModel)]="newChatPassword" placeholder="Channel Password">
+    </mat-form-field>
+    <p class="select-text" *ngIf="newChatType == 'PRIVATE' && friends.length">You can invite your friends:</p>
+    <mat-form-field *ngIf="newChatType === 'PRIVATE' && friends.length">
+      <mat-label>Select friends to invite</mat-label>
+      <mat-select [(ngModel)]="selectedFriends" multiple>
+        <mat-option class="select-friends" *ngFor="let friend of friends" [value]="friend.id">{{ friend.login }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <div style="flex-direction: row;">
+      <button class="cancel-button btn" (click)="onBackClick()">Back</button>
+      <button class="btn" *ngIf="this.newChatType !== '' && this.newChatName !== '' && (newChatType !== 'PROTECTED' || newChatPassword !== '')"
+      (click)="onCreateChannelContinueClick()">Continue</button>
+    </div>
+  </div>
+</ng-template>

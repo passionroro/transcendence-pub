@@ -1,0 +1,90 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+<div class="profile">
+  <app-alert [error]="err" *ngIf="err" (close)="err = undefined;"> </app-alert>
+  <app-msg [msg]="msg" *ngIf="msg" (close)="msg = undefined;"> </app-msg>
+  <br>
+  <div class="content">
+    <div class="left-side">
+      <div class="title">
+        <img class="avatar" [src]="avatarUrl" alt="Avatar">
+        <h1 style="color: aquamarine;">{{username}}</h1>
+      </div>
+      <div class="buttons">
+        <button mat-button class="main-button" style="background-color: rgba(0, 0, 255, 0.562);" (click)="openChangeUsernameDialog()">Change Username</button>
+        <ng-template #usernameDialogTemplate>
+          <div class="dialog">
+            <h4>Change Username</h4>
+            <br>
+            <mat-form-field>
+              <input matInput [(ngModel)]="newUsername" placeholder="New Username">
+            </mat-form-field>
+            <div style="flex-direction: row; align-items: center; ">
+              <button mat-button class="cancel-button" (click)="onCancelClick()">Cancel</button>
+              <button mat-button  style="background-color: rgba(0, 0, 255, 0.562);" (click)="onSaveClick()">Save</button>
+            </div>
+          </div>
+        </ng-template>
+        <div class="changeAvatar">
+          <button mat-button class="main-button" style="background-color: rgba(0, 0, 255, 0.562);" (click)="openFileInput()">Upload Avatar</button>
+          <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/jpeg, image/jpg">
+        </div>
+        <div *ngIf="avatarUrl !== '../../../assets/default.jpg'">
+          <button mat-button class="main-button" style="background-color: rgba(0, 0, 255, 0.562);" (click)="openDeleteAvatarDialog()">Delete Avatar</button>
+          <ng-template #deleteDialogTemplate>
+            <div class="dialog">
+              <h4>Are you sure?</h4>
+              <br>
+              <br>
+              <div>
+                <button mat-button class="cancel-button" (click)="onCancelClick()">Cancel</button>
+                <button mat-button style="background-color: rgba(0, 0, 255, 0.562);" (click)="onDeleteClick()">Delete</button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="enable2fa">
+          <button mat-button class="main-button" style="background-color: rgba(0, 0, 255, 0.562);" (click)="enableTFADialog()" *ngIf="!(isEnableTFA$ | async)">Enable 2FA</button>
+          <ng-template #enableTFADialogTemplate>
+            <div class="dialog">
+              <h4>Scan the QR and insert your code:</h4>
+              <br>
+              <img class="qrImage" src="{{qrCode}}" alt="QR Code">
+              <br>
+              <mat-form-field>
+                <input matInput [(ngModel)]="tfaPassword" placeholder="TFA Code" pattern="[0-9]{6}" maxlength="6" appNumericInput>
+              </mat-form-field>
+              <br>
+              <div style="flex-direction: row;">
+                <button mat-button class="cancel-button" (click)="onCancelClick()">Cancel</button>
+                <button mat-button style="background-color: rgba(0, 0, 255, 0.562);" (click)="onEnableClick()">Enable 2FA</button>
+              </div>
+            </div>
+            </ng-template>
+        </div>
+        <div class="disable2fa">
+          <button mat-button class="main-button" style="background-color: rgba(0, 0, 255, 0.562);" (click)="disableTFADialog()" *ngIf="isEnableTFA$ | async">Disable 2FA</button>
+          <ng-template #disableTFADialogTemplate>
+            <div class="dialog">
+              <h4>Enter 2FA password to disable 2FA for your account</h4>
+              <mat-form-field>
+                <input matInput [(ngModel)]="tfaPassword" placeholder="TFA Code" pattern="[0-9]{6}" maxlength="6" appNumericInput>
+              </mat-form-field>
+              <br>
+              <div style="flex-direction: row;">
+                <button mat-button class="cancel-button" (click)="onCancelClick()">Cancel</button>
+                <button mat-button style="background-color: rgba(0, 0, 255, 0.562);" (click)="onDisableClick()">Desable 2FA</button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="logout">
+          <button mat-button class="main-button" style="background-color: rgba(0, 0, 255, 0.562);" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+    <div class="right-side">
+      <app-friend-list></app-friend-list>
+    </div>
+  </div>
+</div>

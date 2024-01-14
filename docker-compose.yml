@@ -1,0 +1,67 @@
+# version: '3'
+
+# services:
+#   database:
+#     image: postgres:13
+#     ports:
+#       - "5434:5432"
+#     env_file:
+#       - ./backend/.env
+#     networks:
+#       - transcendence
+
+#   # test-database:
+#   #   image: postgres:13
+#   #   ports:
+#   #     - "5435:5432"
+#   #   env_file:
+#   #     - ./backend/.env.test
+#   #   networks:
+#   #     - transcendence
+
+#   backend:
+#     build:
+#       context: ./backend
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - NODE_ENV=production
+#     volumes:
+#       - ./backend:/app
+#     networks:
+#       - transcendence
+#     depends_on:
+#       - database
+
+#   frontend:
+#     build:
+#       context: ./frontend
+#       dockerfile: Dockerfile
+#     ports:
+#       - "4200:4200"
+#     volumes:
+#       - ./frontend:/app
+#     networks:
+#       - transcendence
+#     depends_on:
+#       - backend
+
+# networks:
+#   transcendence:
+
+
+version: '3'
+
+services:
+  database:
+    image: postgres:13
+    ports:
+      - "5434:5432"
+    env_file:
+      - ./backend/.env
+    networks:
+      - transcendence
+
+networks:
+  transcendence:

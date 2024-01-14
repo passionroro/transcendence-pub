@@ -1,0 +1,8 @@
+<div class="container login">
+  <div class="popup-content">
+    <h4 id="title">Welcome!</h4>
+    <h5 id="text">Let's get you logged in</h5>
+    <button (click)="login()">Login</button>
+  </div>
+  <app-alert [error]="err" *ngIf="err" (close)="err = undefined;"> </app-alert>
+</div>

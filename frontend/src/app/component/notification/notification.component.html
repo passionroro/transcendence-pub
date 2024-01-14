@@ -1,0 +1,16 @@
+<!-- Notification Component Template -->
+<div class="notification-container">
+  <ul class="notification-list">
+    <li *ngFor="let notification of notifications" class="notification-item">
+      <div [routerLink]="notification.link" class="notification">
+        <div class="notification-header">
+          <i class="fa fa-bell notification-icon"></i>
+          <span class="chat-label">Message: {{ notification.name }}</span>
+        </div>
+        <div class="notification-body">
+          <p class="message-snippet"> {{ notification.message }} </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

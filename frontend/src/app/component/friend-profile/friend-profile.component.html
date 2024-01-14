@@ -1,0 +1,30 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+<div class="container friend-profile">
+  <app-msg [msg]="msg" *ngIf="msg" (close)="msg = undefined;"> </app-msg>
+  <app-alert [error]="err" *ngIf="err" (close)="err = undefined;"> </app-alert>
+  <div class="content friend-profile" *ngIf="friendDetails" style="flex-direction: column;">
+    <div class="friend-title">
+      <img class="avatar" src="{{avatarUrl}}" alt="Avatar">
+      <div class="friend-info"  style="text-align: left;">
+        <h1>{{ friendDetails.login }}</h1>
+        <p *ngIf="this.isFriend | async" [ngClass]="friendStatus$ | async">{{ friendStatus$ | async }}</p>
+        <p>{{ friendDetails.email }}</p>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary" (click)="chat()" *ngIf="this.isFriend | async">Chat</button>
+      <button class="btn btn-primary" (click)="removeFriend()" *ngIf="this.isFriend | async">Remove Friend</button>
+      <button class="btn btn-primary" (click)="sendRequest()" *ngIf="!(this.isFriend | async) && !(this.isRequestSent | async) && !(this.isRequestReceived | async) && !(this.isBlocked | async) && !(this.isBlocking | async)">Add Friend</button>
+      <button class="btn btn-primary" (click)="cancelRequest()" *ngIf="(this.isRequestSent | async)">Cancel Request</button>
+      <button class="btn btn-primary" (click)="acceptRequest()" *ngIf="(this.isRequestReceived | async) && !(this.isBlocked | async) && !(this.isBlocking | async)">Approve Request</button>
+      <button class="btn btn-primary" (click)="declineRequest()" *ngIf="(this.isRequestReceived | async)">Decline Request</button>
+      <button class="btn btn-primary block" (click)="block()" *ngIf="!(this.isRequestSent | async) && !(this.isRequestReceived | async) && !(this.isBlocking | async)">Block</button>
+      <button class="btn btn-primary unblock" (click)="unblock()" *ngIf="(this.isBlocking | async)">Unblock</button>
+    </div>
+    <app-play-history [dashboardId]="friendId"></app-play-history>
+  </div>
+  <div *ngIf="!friendDetails">
+    <p>Friend not found</p>
+  </div>
+</div>

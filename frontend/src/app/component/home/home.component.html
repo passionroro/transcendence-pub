@@ -1,0 +1,29 @@
+<app-notification></app-notification>
+<app-topbar></app-topbar>
+<app-alert [error]="err" *ngIf="err" (close)="err = undefined;"> </app-alert>
+<app-msg [msg]="msg" *ngIf="msg" (close)="msg = undefined;"> </app-msg>
+<div class="conainer home">
+  <br>
+  <div class="content">
+    <div class="left-side">
+      <app-play-dashboard></app-play-dashboard>
+    </div>
+    <div class="right-side">
+      <div class="user-list">
+        <h4>Users on site:</h4>
+        <br>
+        <ol class="no-bullets">
+          <li class="users-on-site" *ngFor="let user of users">
+            <div class="user-container">
+              <img class="profile-pic" [src]="user.avatarUrl" decoding="async">
+              <a [routerLink]="['/profile', user.id]">
+                <button class="button-friend">{{ user.login }}</button>
+              </a>
+            </div>
+            </li>
+          </ol>
+        <p *ngIf="users.length === 0">Looks like you are the first user on our site 🥇</p>
+      </div>
+    </div>
+  </div>
+</div>

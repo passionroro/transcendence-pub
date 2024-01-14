@@ -1,0 +1,186 @@
+.title {
+  text-align: center;
+  align-items: center;
+  margin: 30px !important;
+  color:rgb(89, 255, 89);
+}
+
+.description {
+  text-align: center;
+  align-items: center;
+  margin: 30px 10vw !important;
+  color:#ccc;
+  line-height: 1.5;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.channels {
+  display: flex;
+  height: calc(100vh - 350px);
+  margin: 0vw 40px;
+}
+
+.block {
+  width: 33.33%;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  margin: 0vw 2vw;
+  background-color:ghostwhite;
+}
+
+.channel-list {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: flex-start;
+  height: calc(100vh - 435px);
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  border-radius: 0px 0px 30px 30px;
+}
+
+::-webkit-scrollbar {
+  width: 0; /* This hides the horizontal scrollbar */
+  height: 0; /* This hides the vertical scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* This makes the scrollbar track transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; /* This makes the scrollbar thumb (dragging area) transparent */
+}
+
+.block-title {
+  text-align: center;
+  align-items: center;
+  padding: 30px;
+  color: #101010;
+  background-image: url("../../../assets/channel-name-bg.jpeg");
+  border-radius: 29px 29px 0px 0px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  white-space: nowrap; /* Prevent text from breaking into multiple lines */
+  overflow: hidden; /* Hide overflowing text */
+}
+
+.channel {
+  display: flex;
+  height: 80px;
+  justify-content:flex-start;
+  padding: 10px 50px;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  color:rgb(87, 92, 96);
+}
+
+.channel:hover {
+  color: black;
+  background-color:#ebebeb;
+}
+
+.channel-content {
+  display: flex;
+  align-items: center;
+}
+
+.channel-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.channel-name {
+  margin: 0px !important;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.dialog {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(90, 94, 205);
+  background-color: aliceblue;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  justify-content: space-between;
+}
+
+.btn {
+  min-width: 120px;
+  min-height: 35px;
+  margin: 25px;
+  box-shadow: 0 0 0 0.1rem rgba(177, 177, 177, 0.494);
+  background-color: rgb(43, 46, 226);
+  color: white;
+  border-radius: 5%;
+}
+
+.btn:hover {
+  background-color: rgb(96, 96, 252);
+}
+
+.cancel-button {
+  color: #333;
+  background-color: rgba(177, 177, 177, 0.714);
+}
+
+.cancel-button:hover {
+  color: #101010;
+  background-color: rgba(222, 222, 222, 0.714);
+}
+
+.chatDescriptionDialog {
+  color: #080808;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-channels-text {
+  color: grey;
+  text-align: center;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .title {
+    margin-top: 123px !important;
+  }
+
+  .channels {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .block-title {
+    padding: 15px;
+  }
+
+  .block {
+    width: 100%;
+    margin: 0px;
+    margin-bottom: 40px;
+  }
+
+  .channel-list {
+    height: auto;
+    border-radius: 0px 0px 30px 30px;
+  }
+}
